@@ -2,8 +2,12 @@
 
 namespace App\Controller;
 
+use App\Entity\Status;
+use App\Form\StatusType;
+use App\Entity\Profession;
 use App\Entity\SkillLevel;
 use App\Entity\TypeDocument;
+use App\Form\ProfessionType;
 use App\Form\SkillLevelType;
 use App\Entity\TypeExperience;
 use App\Form\TypeDocumentType;
@@ -28,6 +32,10 @@ class OptionsController extends AbstractController
      */
     public function index(): Response 
     {
+        $professions = $this->em->getRepository(Profession::class)->findAll();
+
+        $statii = $this->em->getRepository(Status::class)->findAll();
+
         $skillLevels = $this->em->getRepository(SkillLevel::class)->findAll();
 
         $experienceTypes = $this->em->getRepository(TypeExperience::class)->findAll();
@@ -35,6 +43,8 @@ class OptionsController extends AbstractController
         $documentTypes = $this->em->getRepository(TypeDocument::class)->findAll();
 
         return $this->render('options/index.html.twig', [
+            'professions' => $professions,
+            'statii' => $statii,
             'skill_levels' => $skillLevels,
             'experience_types' => $experienceTypes,
             'document_types' => $documentTypes,
@@ -46,12 +56,35 @@ class OptionsController extends AbstractController
      */
     public function addOptions(Request $request): Response
     {
+        $profession = new Profession;
+        $addProfessionForm = $this->createForm(ProfessionType::class, $profession);
+        $addProfessionForm->handleRequest($request);
+        if($addProfessionForm->isSubmitted() && $addProfessionForm->isValid())
+        {
+            $profession = $addProfessionForm->getData();
+
+            $this->em->persist($profession);
+            $this->em->flush();
+
+            return $this->redirectToRoute('options');
+        }
+        
+        $status = new Status;
+        $addStatusForm = $this->createForm(StatusType::class, $status);
+        $addStatusForm->handleRequest($request);
+        if($addStatusForm->isSubmitted() && $addStatusForm->isValid())
+        {
+            $status = $addStatusForm->getData();
+
+            $this->em->persist($status);
+            $this->em->flush();
+
+            return $this->redirectToRoute('options');
+        }
         
         $skillLevel = new SkillLevel;
         $addSkillLevelForm = $this->createForm(SkillLevelType::class, $skillLevel);
-
         $addSkillLevelForm->handlerequest($request);
-
         if($addSkillLevelForm->isSubmitted() && $addSkillLevelForm->isValid())
         {
             $skillLevel = $addSkillLevelForm->getData();
@@ -94,17 +127,43 @@ class OptionsController extends AbstractController
         }
         
         return $this->render('options/add.html.twig', [
-            'add_skill_level' => $addSkillLevelForm->createView(),
-            'add_experience_type' => $addExperienceTypeForm->createView(),
-            'add_document_type' => $addDocumentTypeForm->createView()
+            'add_profession_form' => $addProfessionForm->createView(),
+            'add_status_form' => $addStatusForm->createView(),
+            'add_skill_level_form' => $addSkillLevelForm->createView(),
+            'add_experience_form' => $addExperienceTypeForm->createView(),
+            'add_document_form' => $addDocumentTypeForm->createView()
         ]);
     }
 
     /**
      * @Route("/options/modify/{id}", name="modify_options")
      */
-    public function modifyOptions(?SkillLevel $skillLevelId, ?TypeExperience $typeExperienceId, ?TypeDocument $documentTypeId, Request $request): Response 
+    public function modifyOptions(?Profession $professions, ?Status $status, ?SkillLevel $skillLevelId, ?TypeExperience $typeExperienceId, ?TypeDocument $documentTypeId, Request $request): Response 
     {
+        $modifyProfessionForm = $this->createForm(ProfessionType::class, $professions);
+        $modifyProfessionForm->handleRequest($request);
+        if($modifyProfessionForm->isSubmitted() && $modifyProfessionForm->isValid())
+        {
+            $profession = $modifyProfessionForm->getData();
+
+            $this->em->persist($profession);
+            $this->em->flush();
+
+            return $this->redirectToRoute('options');
+        }
+
+        $modifyStatusForm = $this->createForm(StatusType::class, $status);
+        $modifyStatusForm->handleRequest($request);
+        if($modifyStatusForm->isSubmitted() && $modifyStatusForm->isValid())
+        {
+            $status = $modifyStatusForm->getData();
+
+            $this->em->persist($status);
+            $this->em->flush();
+
+            return $this->redirectToRoute('options');
+        }
+        
         $skillLevel = new SkillLevel;
         $modifySkillLevelForm = $this->createForm(SkillLevelType::class, $skillLevelId);
         $modifySkillLevelForm->handleRequest($request);
@@ -144,9 +203,11 @@ class OptionsController extends AbstractController
         };
 
         return $this->render('options/modify.html.twig', [ 
-            'modify_skill_level' => $modifySkillLevelForm->createView(),
-            'modify_experience_type' => $modifyExperienceTypeForm->createView(),
-            'modify_document_type' => $modifyDocumentTypeForm->createView() 
+            'modify_profession_form' => $modifyProfessionForm->createView(),
+            'modify_status_form' => $modifyStatusForm->createView(),
+            'modify_skill_level_form' => $modifySkillLevelForm->createView(),
+            'modify_experience_form' => $modifyExperienceTypeForm->createView(),
+            'modify_document_form' => $modifyDocumentTypeForm->createView() 
         ]);
     }
 

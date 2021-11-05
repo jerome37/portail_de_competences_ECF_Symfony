@@ -3,7 +3,7 @@
 {% block title %}Portalents - Profile{% endblock %}
 
 {% block body %}
-{# {{ dump(profile.status.name) }} #}
+
     <main class="container w-75 d-flex ">
         <div class="w-100 d-flex flex-column justify-content-center my-5">
             
@@ -11,7 +11,7 @@
                 <div class="d-flex justify-content-center w-50 flex-column border border-dark">
                     
                     <div class="m-2">
-                        <div class="">
+                        <div>
                             {% if profile.status.name is same as('candidat') %}
                                 <div class="d-flex justify-content-center p-2 fs-4 d-block alert-dismissible alert-primary">
                                     {{ profile.status.name }}
@@ -34,6 +34,10 @@
                         </div>
                     </div>
 
+                    <div class="container d-flex justify-content-center mt-2">
+                        <image src="https://picsum.photos/150/150" class="rounded-circle w-50 border"></image>
+                    </div>
+
                     <div class="d-flex justify-content-center mt-4 p-2 fs-3">
                         {{ profile.firstname ~ ' ' ~ profile.lastname }}
                     </div>
@@ -44,30 +48,40 @@
                         {{ profile.profession.name }}
                     </div>
 
-                    <div class="container d-flex justify-content-center flex-wrap w-50 p-2">
-                        {% for skill in skills %}
-                            <span class="badge rounded-pill bg-success m-2">
-                                {{ skill.skill.name }}
-                            </span>
-                        {% endfor %}
+                    <div class="container d-flex justify-content-center w-75 my-2">
+                        <ul class="list-group w-100">
+                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                Compétences
+                                <span class="badge bg-primary rounded-pill">{{ skills|length}}</span>
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                Expériences
+                                <span class="badge bg-primary rounded-pill">{{ experiences|length}}</span>
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                Documents
+                                <span class="badge bg-primary rounded-pill">{{ documents|length}}</span>
+                            </li>
+                    </ul>
                     </div>
 
-                    <div class="container d-flex justify-content-center w-100 m-4">
-                        <div class="container w-75">
+                    <div class="container d-flex justify-content-center flex-wrap w-75 p-3 mt-2 border">
+                        <div>
                             <div class="my-4">
                                 <i class="fas fa-home me-4"></i>
                                 {{ profile.adress ~ ', ' ~ profile.postal ~ ' ' ~ profile.town }}
                             </div>
                             <div class="my-4">
                                 <i class="fas fa-phone-alt me-4"></i>
-                                <a href="tel:{{ profile.phone }}">
-                                    {{ profile.phone }}
+                                <a href="tel:{{ profile.phone }}" class="link-dark">
+                                    {% set splitNumber = profile.phone|split('', 2) %}
+                                    {{ splitNumber|join('.') }}
                                 </a>
                             </div>
                             {% if profile.email is not null %}
                                 <div class="my-4">
                                     <i class="fas fa-envelope me-2"></i>perso :
-                                    <a href="mailto:{{ profile.email }}">
+                                    <a href="mailto:{{ profile.email }}" class="link-dark">
                                         {{ profile.email }}
                                     </a>
                                 </div>

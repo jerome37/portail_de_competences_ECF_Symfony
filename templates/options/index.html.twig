@@ -7,174 +7,238 @@
         <div class="container">
 
             <div class="container w-75 d-flex justify-content-center my-4">
-                <h1 class="">Liste des options</h1>
+                <h1 class="">Les options</h1>
             </div>
 
-            <div class="accordion" id="accordionExample">
-
-                {# NIVEAUX DE COMPETENCES #}
-
-                <div class="accordion-item">
-                    <h2 class="accordion-header" id="headingOne">
-                        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                            Les niveaux de compétence
-                        </button>
-                    </h2>
-                    <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
-                    <div class="accordion-body">
-                        <div class="container w-75">
-                            <div class="d-flex justify-content-center flex-column">
-                                <table class="table table-hover w-100">
-                                    <thead>
-                                        <tr>
-                                            <th scope="col">
-                                                <div class="d-flex justify-content-center w-100">Niveau</div>
+            <ul class="nav nav-tabs">
+                <li class="nav-item">
+                    <a class="nav-link active" data-bs-toggle="tab" href="#professions">Les professions</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" data-bs-toggle="tab" href="#statii">Les statuts</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" data-bs-toggle="tab" href="#skills">Les niveaux de compétence</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" data-bs-toggle="tab" href="#experiences">Les types d'expérience</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" data-bs-toggle="tab" href="#documents">Les types de document</a>
+                </li>
+            </ul>
+            <div id="myTabContent" class="tab-content d-flex justify-content-center my-5">
+                <div class="w-100 tab-pane fade p-4 show active" id="professions">
+                    <div class="container w-75">
+                        <div class="d-flex justify-content-center flex-column">
+                            <table class="table table-hover w-100">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">
+                                            <div class="d-flex justify-content-center w-100">Nom</div>
+                                        </th>
+                                        <th scope="col">
+                                            <div class="d-flex justify-content-center w-100">Gérer la profession</div>
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for profession in professions %}
+                                        <tr class="table-light">
+                                            <th class="d-flex justify-content-center w-100 fs-5">
+                                                <div>{{ profession.name }}</div>
                                             </th>
-                                            <th scope="col">
-                                                <div class="d-flex justify-content-center w-100">Gérer le niveau</div>
-                                            </th>
+                                            <td>
+                                                <div class="d-flex justify-content-center w-100">
+                                                    <a href="{{ path('modify_options', {'id': profession.id}) }}" style="margin-right: 30px;">
+                                                        <i class="fas fa-pencil-alt" style="color: black;"></i>
+                                                    </a>
+                                                    <a href="{{ path('delete_options', {'id': profession.id}) }}">
+                                                        <i class="far fa-trash-alt" style="color: black"></i>
+                                                    </a>
+                                                </div>
+                                            </td>
                                         </tr>
-                                    </thead>
-                                    <tbody>
-                                        {% for skill_level in skill_levels %}
-                                            <tr class="table-light">
-                                                <th class="d-flex justify-content-center w-100 fs-5">
-                                                    <div>{{ skill_level.status }}</div>
-                                                </th>
-                                                <td>
-                                                    <div class="d-flex justify-content-center w-100">
-                                                        <a href="{{ path('modify_options', {'id': skill_level.id}) }}" style="margin-right: 30px;">
-                                                            <i class="fas fa-pencil-alt" style="color: black;"></i>
-                                                        </a>
-                                                        <a href="{{ path('delete_options', {'id': skill_level.id}) }}">
-                                                            <i class="far fa-trash-alt" style="color: black"></i>
-                                                        </a>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                        {% endfor %}
-                                    </tbody>
-                                </table>
-                                <div class="d-flex justify-content-center">
-                                    <button type="button" class="btn btn-primary btn-lg mt-4">
-                                        <a href="{{ path('add_options') }}" style="color: white; padding: 2px; text-decoration: none;">Ajouter un niveau</a>
-                                    </button>
-                                </div>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                            <div class="d-flex justify-content-center">
+                                <button type="button" class="btn btn-primary btn-lg mt-4">
+                                    <a href="{{ path('add_options') }}" style="color: white; padding: 2px; text-decoration: none;">Ajouter un niveau</a>
+                                </button>
                             </div>
                         </div>
-                    </div>
                     </div>
                 </div>
-
-                {# TYPES D'EXPERIENCE #}
-
-                <div class="accordion-item">
-                    <h2 class="accordion-header" id="headingTwo">
-                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                        Les types d'expérience
-                    </button>
-                    </h2>
-                    <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
-                    <div class="accordion-body">
-                        <div class="container w-75">
-                            <div class="d-flex justify-content-center flex-column">
-                                <table class="table table-hover w-100">
-                                    <thead>
-                                        <tr>
-                                            <th scope="col">
-                                                <div class="d-flex justify-content-center w-100">Type</div>
+                <div class="w-100 tab-pane fade p-4" id="statii">
+                    <div class="container w-75">
+                        <div class="d-flex justify-content-center flex-column">
+                            <table class="table table-hover w-100">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">
+                                            <div class="d-flex justify-content-center w-100">Nom</div>
+                                        </th>
+                                        <th scope="col">
+                                            <div class="d-flex justify-content-center w-100">Gérer le statut</div>
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for status in statii %}
+                                        <tr class="table-light">
+                                            <th class="d-flex justify-content-center w-100 fs-5">
+                                                <div>{{ status.name }}</div>
                                             </th>
-                                            <th scope="col">
-                                                <div class="d-flex justify-content-center w-100">Gérer le type</div>
-                                            </th>
+                                            <td>
+                                                <div class="d-flex justify-content-center w-100">
+                                                    <a href="{{ path('modify_options', {'id': status.id}) }}" style="margin-right: 30px;">
+                                                        <i class="fas fa-pencil-alt" style="color: black;"></i>
+                                                    </a>
+                                                    <a href="{{ path('delete_options', {'id': status.id}) }}">
+                                                        <i class="far fa-trash-alt" style="color: black"></i>
+                                                    </a>
+                                                </div>
+                                            </td>
                                         </tr>
-                                    </thead>
-                                    <tbody>
-                                        {% for experience_type in experience_types %}
-                                            <tr class="table-light">
-                                                <th class="d-flex justify-content-center w-100 fs-5">
-                                                    <div>{{ experience_type.name }}</div>
-                                                </th>
-                                                <td>
-                                                    <div class="d-flex justify-content-center w-100">
-                                                        <a href="{{ path('modify_options', {'id': experience_type.id}) }}" style="margin-right: 30px;">
-                                                            <i class="fas fa-pencil-alt" style="color: black;"></i>
-                                                        </a>
-                                                        <a href="{{ path('delete_options', {'id': experience_type.id}) }}">
-                                                            <i class="far fa-trash-alt" style="color: black"></i>
-                                                        </a>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                        {% endfor %}
-                                    </tbody>
-                                </table>
-                                <div class="d-flex justify-content-center">
-                                    <button type="button" class="btn btn-primary btn-lg mt-4">
-                                        <a href="{{ path('add_options') }}" style="color: white; padding: 2px; text-decoration: none;">Ajouter un type</a>
-                                    </button>
-                                </div>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                            <div class="d-flex justify-content-center">
+                                <button type="button" class="btn btn-primary btn-lg mt-4">
+                                    <a href="{{ path('add_options') }}" style="color: white; padding: 2px; text-decoration: none;">Ajouter un niveau</a>
+                                </button>
                             </div>
                         </div>
-                    </div>
                     </div>
                 </div>
-
-                {# TYPES DE DOCUMENTS #}
-
-                <div class="accordion-item">
-                    <h2 class="accordion-header" id="headingThree">
-                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                        Les types de document
-                    </button>
-                    </h2>
-                    <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
-                    <div class="accordion-body">
-                        <div class="container w-75">
-                            <div class="d-flex justify-content-center flex-column">
-                                <table class="table table-hover w-100">
-                                    <thead>
-                                        <tr>
-                                            <th scope="col">
-                                                <div class="d-flex justify-content-center w-100">Type</div>
+                <div class="w-100 tab-pane fade p-4" id="skills">
+                    <div class="container w-75">
+                        <div class="d-flex justify-content-center flex-column">
+                            <table class="table table-hover w-100">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">
+                                            <div class="d-flex justify-content-center w-100">Niveau</div>
+                                        </th>
+                                        <th scope="col">
+                                            <div class="d-flex justify-content-center w-100">Gérer le niveau</div>
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for skill_level in skill_levels %}
+                                        <tr class="table-light">
+                                            <th class="d-flex justify-content-center w-100 fs-5">
+                                                <div>{{ skill_level.status }}</div>
                                             </th>
-                                            <th scope="col">
-                                                <div class="d-flex justify-content-center w-100">Gérer le type</div>
-                                            </th>
+                                            <td>
+                                                <div class="d-flex justify-content-center w-100">
+                                                    <a href="{{ path('modify_options', {'id': skill_level.id}) }}" style="margin-right: 30px;">
+                                                        <i class="fas fa-pencil-alt" style="color: black;"></i>
+                                                    </a>
+                                                    <a href="{{ path('delete_options', {'id': skill_level.id}) }}">
+                                                        <i class="far fa-trash-alt" style="color: black"></i>
+                                                    </a>
+                                                </div>
+                                            </td>
                                         </tr>
-                                    </thead>
-                                    <tbody>
-                                        {% for document_type in document_types %}
-                                            <tr class="table-light">
-                                                <th class="d-flex justify-content-center w-100 fs-5">
-                                                    <div>{{ document_type.name }}</div>
-                                                </th>
-                                                <td>
-                                                    <div class="d-flex justify-content-center w-100">
-                                                        <a href="{{ path('modify_options', {'id': document_type.id}) }}" style="margin-right: 30px;">
-                                                            <i class="fas fa-pencil-alt" style="color: black;"></i>
-                                                        </a>
-                                                        <a href="{{ path('delete_options', {'id': document_type.id}) }}">
-                                                            <i class="far fa-trash-alt" style="color: black"></i>
-                                                        </a>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                        {% endfor %}
-                                    </tbody>
-                                </table>
-                                <div class="d-flex justify-content-center">
-                                    <button type="button" class="btn btn-primary btn-lg mt-4">
-                                        <a href="{{ path('add_options') }}" style="color: white; padding: 2px; text-decoration: none;">Ajouter un type</a>
-                                    </button>
-                                </div>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                            <div class="d-flex justify-content-center">
+                                <button type="button" class="btn btn-primary btn-lg mt-4">
+                                    <a href="{{ path('add_options') }}" style="color: white; padding: 2px; text-decoration: none;">Ajouter un niveau</a>
+                                </button>
                             </div>
                         </div>
                     </div>
+                </div>
+                <div class="w-100 tab-pane fade p-4" id="experiences">
+                    <div class="container w-75">
+                        <div class="d-flex justify-content-center flex-column">
+                            <table class="table table-hover w-100">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">
+                                            <div class="d-flex justify-content-center w-100">Type</div>
+                                        </th>
+                                        <th scope="col">
+                                            <div class="d-flex justify-content-center w-100">Gérer le type</div>
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for experience_type in experience_types %}
+                                        <tr class="table-light">
+                                            <th class="d-flex justify-content-center w-100 fs-5">
+                                                <div>{{ experience_type.name }}</div>
+                                            </th>
+                                            <td>
+                                                <div class="d-flex justify-content-center w-100">
+                                                    <a href="{{ path('modify_options', {'id': experience_type.id}) }}" style="margin-right: 30px;">
+                                                        <i class="fas fa-pencil-alt" style="color: black;"></i>
+                                                    </a>
+                                                    <a href="{{ path('delete_options', {'id': experience_type.id}) }}">
+                                                        <i class="far fa-trash-alt" style="color: black"></i>
+                                                    </a>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                            <div class="d-flex justify-content-center">
+                                <button type="button" class="btn btn-primary btn-lg mt-4">
+                                    <a href="{{ path('add_options') }}" style="color: white; padding: 2px; text-decoration: none;">Ajouter un type</a>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="w-100 tab-pane fade p-4" id="documents">
+                    <div class="container w-75">
+                        <div class="d-flex justify-content-center flex-column">
+                            <table class="table table-hover w-100">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">
+                                            <div class="d-flex justify-content-center w-100">Type</div>
+                                        </th>
+                                        <th scope="col">
+                                            <div class="d-flex justify-content-center w-100">Gérer le type</div>
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for document_type in document_types %}
+                                        <tr class="table-light">
+                                            <th class="d-flex justify-content-center w-100 fs-5">
+                                                <div>{{ document_type.name }}</div>
+                                            </th>
+                                            <td>
+                                                <div class="d-flex justify-content-center w-100">
+                                                    <a href="{{ path('modify_options', {'id': document_type.id}) }}" style="margin-right: 30px;">
+                                                        <i class="fas fa-pencil-alt" style="color: black;"></i>
+                                                    </a>
+                                                    <a href="{{ path('delete_options', {'id': document_type.id}) }}">
+                                                        <i class="far fa-trash-alt" style="color: black"></i>
+                                                    </a>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                            <div class="d-flex justify-content-center">
+                                <button type="button" class="btn btn-primary btn-lg mt-4">
+                                    <a href="{{ path('add_options') }}" style="color: white; padding: 2px; text-decoration: none;">Ajouter un type</a>
+                                </button>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
-
 
         </div>
     </div>
