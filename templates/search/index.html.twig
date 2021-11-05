@@ -1,0 +1,113 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Portalents - recherche{% endblock %}
+
+{% block body %}
+{# {{ dump(results) }} #}
+    <form class="container w-75 border my-4 p-4">
+
+        <div class="container w-75 mt-2 mb-4">
+            <input class="form-control me-sm-2" method="POST" placeholder="Rechercher un profil" role="search" name="name">
+        </div>
+
+        <div class="accordion container w-75" id="accordionExample">
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="headingOne">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+                        Recherche par compétence
+                    </button>
+                </h2>
+                <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                    <div class="accordion-body d-flex justify-content-between align-items-end mb-4">
+                        <div class="container w-100">
+                            <label for="skill" class="form-label mt-4">Compétence</label>
+                            <select name="skill" class="form-select" id="skill">
+                                <option></option>
+                                {% for skill in skills %}
+                                    <option>{{ skill.name }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+
+                        <div class="container w-100">
+                            <label for="level" class="form-label mt-4">Niveau</label>
+                            <select name="level" class="form-select" id="level">
+                                <option></option>
+                                {% for level in levels %}
+                                    <option>{{ level.status }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+
+                        <div class="container w-100 d-flex justify-content-center">
+                            <div class="form-check form-switch w-75">
+                                <label class="form-check-label">Appréciée ?</label>
+                                <input type="checkbox" name="appreciate" class="form-check-input">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="container w-100 d-flex justify-content-end mt-4">
+            <button class="btn btn-secondary my-2 my-sm-0" type="submit" id="search">
+                <i class="fas fa-search"></i>
+            </button>
+        </div>
+
+    </form>
+
+    {% if results|length > 0 %}
+
+        <div class="container w-75 d-flex justify-content-end mb-4">
+            <div class="list-group-item d-flex justify-content-between align-items-center">
+            Nombre de résultats
+            <span class="badge bg-primary rounded-pill ms-4">{{ results|length }}</span>
+            </div>
+        </div>
+
+        <div class="container w-50">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th scope="col">Nom</th>
+                        <th scope="col">Statut</th>
+                        <th scope="col">Profession</th>
+                        {# <th scope="col">Column heading</th> #}
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for result in results %}
+                        <tr>
+                            <th>{{ result.firstname ~ ' ' ~ result.lastname }}</th>
+                            <td>{{ result.status.name }}</td>
+                            <td>{{ result.profession.name }}</td>
+                            <td class="d-flex justify-content-center"><a href="{{ path('profile', { 'id': result.id }) }}"><i class="fas fa-eye"></i></a></td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+    {% elseif results is same as([]) %}
+
+        <div class="container w-75 d-flex justify-content-end mb-4">
+            <div class="list-group-item d-flex justify-content-between align-items-center">
+            Nombre de résultats
+            <span class="badge bg-primary rounded-pill ms-4">{{ results|length }}</span>
+            </div>
+        </div>
+
+        <div class="container w-50 d-flex justify-content-center">
+            <h3>Aucun résultat trouvé pour cette recherche</h3>
+        </div>
+
+    {% elseif results is same as(null) %}
+
+        <div class="container w-50 d-flex justify-content-center">
+            <h3>En attente de votre recherche</h3>
+        </div>
+
+    {% endif %}
+{% endblock %}

@@ -1,0 +1,7 @@
+
+{% if role is same as("ROLE_COMMERCIAL") or role is same as("ROLE_ADMIN") %}
+    {{ render(path('dashboard')) }}
+{% elseif role is same as("ROLE_COLLABORATEUR") %}
+    {{ render(path('profile')) }}
+{% endif %}
+

@@ -1,0 +1,54 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Portalents - Les niveaux de compétences{% endblock %}
+
+{% block body %}
+	<div class="container w-75 mt-5 d-flex flex-column align-items-center">
+		<h1 class="mt-4 mb-4">Liste des niveaux de compétences</h1>
+		<div class="container d-flex justify-content-center">
+			<table class="table table-hover w-75">
+				<thead>
+                    <tr>
+                        <th scope="col">
+                            <div class="d-flex justify-content-center w-100">Niveau</div>
+                        </th>
+                        <th scope="col">
+                            <div class="d-flex justify-content-center w-100">Modifier le niveau</div>
+                        </th>
+                        <th scope="col">
+                            <div class="d-flex justify-content-center w-100">Supprimer le niveau</div>
+                        </th>
+                    </tr>
+                </thead>
+				<tbody>
+					{% for skillLevel in skillLevels %}
+						<tr class="table-light">
+							<th class="d-flex justify-content-center w-100 ps-5 fs-5">
+								<div>{{ skillLevel.status }}</div>
+							</th>
+                            <td>
+								<div class="d-flex justify-content-center w-100">
+									<a href="{{ path('modify_skill_level', {'id': skillLevel.id}) }}" style="margin-right: 30px;">
+										<i class="fas fa-pencil-alt" style="color: black;"></i>
+									</a>
+								</div>
+							</td>
+							<td>
+								<div class="d-flex justify-content-center w-100">
+									<a href="{{ path('delete_skill_level', {'id': skillLevel.id}) }}">
+										<i class="far fa-trash-alt" style="color: black"></i>
+									</a>
+								</div>
+							</td>
+						</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+		</div>
+		<div class="d-flex justify-content-center">
+			<button type="button" class="btn btn-primary btn-lg mt-4">
+				<a href="{{ path('add_skill_level') }}" style="color: white; padding: 2px; text-decoration: none;">Ajouter un niveau</a>
+			</button>
+		</div>
+	</div>
+{% endblock %}

@@ -1,0 +1,48 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Portalents - Les types d'expérience{% endblock %}
+
+{% block body %}
+
+	<div class="container mt-5 d-flex flex-column align-items-center">
+		<h1 class="mt-4 mb-4">Liste des types d'expérience</h1>
+		<div class="container d-flex justify-content-center">
+			<table class="table table-hover w-75">
+				<thead>
+					<tr>
+						<td>
+							<div class="d-flex justify-content-center w-100 text-light">Nom</div>
+						</td>
+						<td>
+							<div class="d-flex justify-content-center w-100 text-light">Actions</div>
+						</td>
+					</tr>
+				</thead>
+				<tbody>
+					{% for experience_type in experience_types %}
+						<tr class="table-light">
+							<td class="d-flex justify-content-start w-100 ps-5 fs-5">
+								<div>{{ experience_type.name }}</div>
+							</td>
+							<td>
+								<div class="d-flex justify-content-center w-100">
+									<a href="{{ path('modify_type_experience', {'id': experience_type.id}) }}" style="margin-right: 30px;">
+										<i class="fas fa-pencil-alt" style="color: black;"></i>
+									</a>
+									<a href="{{ path('delete_type_experience', {'id': experience_type.id}) }}">
+										<i class="far fa-trash-alt" style="color: black"></i>
+									</a>
+								</div>
+							</td>
+						</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+		</div>
+		<div class="d-flex justify-content-center">
+			<button type="button" class="btn btn-primary btn-lg mt-4">
+				<a href="{{ path('add_type_experience') }}" class="text-white p-2 text-decoration-none">Ajouter un type</a>
+			</button>
+		</div>
+	</div>
+{% endblock %}

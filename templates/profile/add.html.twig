@@ -1,0 +1,83 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}TalentsManager - Ajouter un profil{% endblock %}
+
+{% block body %}
+    {# <div class="container w-75 mt-5">
+        <div class="container w-75">
+            {{ form(add_profile_form) }}
+        </div>
+    </div> #}
+
+    <div class="container w-75 mt-5">
+        <div class="container w-75">
+            {{ form_start(add_profile_form) }}
+            
+            {% if is_granted('ROLE_ADMIN') %}
+                <div class="row w-25">
+                    {{ form_row(add_profile_form.status) }}
+                </div>
+            {% endif %}
+
+            <div class="row w-25">
+                <div class="col">
+                    {{ form_row(add_profile_form.disponibility) }}
+                </div>
+            </div>
+
+
+            <div class="dropdown-divider my-5"></div>
+
+            <div class="row">
+                <div class="col">
+                    {{ form_row(add_profile_form.firstname) }}
+                </div>
+                <div class="col">
+                    {{ form_row(add_profile_form.lastname) }}
+                </div>
+            </div>
+
+            <div class="row w-25">
+                {{ form_row(add_profile_form.profession) }}
+            </div>
+
+
+            <div class="dropdown-divider my-5"></div>
+
+            <div class="row">
+                {{ form_row(add_profile_form.adress) }}
+            </div>
+
+            <div class="row">
+                <div class="col w-25">
+                    {{ form_row(add_profile_form.postal) }}
+                </div>
+                <div class="col w-75">
+                    {{ form_row(add_profile_form.town) }}
+                </div>
+            </div>
+
+
+            <div class="dropdown-divider my-5"></div>
+
+            <div class="row">
+                <div class="col w-25">
+                    {{ form_row(add_profile_form.phone) }}
+                </div>
+                <div class="col w-75">
+                    {{ form_row(add_profile_form.email) }}
+                </div>
+            </div>
+
+
+            <div class="dropdown-divider my-5"></div>
+
+            <div class="container d-flex justify-content-end w-100 ">
+                {{ form_row(add_profile_form.Ajouter) }}
+            </div>
+
+            {{ form_end(add_profile_form)}}
+        </div>
+    </div>
+
+{% endblock %}

@@ -1,0 +1,75 @@
+{% if app.request.attributes.get('_route') is same as('app_login') %}
+
+    <div class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div class="container w-75">
+            <div class="navbar-brand fs-1">Portalents</div>
+        </div>
+    </div>
+
+{% else %}
+
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div class="container w-75 align-items-start">
+            <div class="container">
+                
+                {% if app.request.attributes.get('_route') is same as('dashboard') or app.request.attributes.get('_route') is same as('profile')%}
+                    <div class="navbar-brand fs-1">Portalents</div>
+                {% else %}
+                    <a class="navbar-brand fs-1" href="{{ path('home')}}">Portalents</a>
+                {% endif %}
+
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+                </button>
+
+                {% if is_granted('ROLE_COMMERCIAL') or is_granted('ROLE_ADMIN') %}
+                    <div class="collapse navbar-collapse" id="navbarColor01">
+                        <ul class="navbar-nav me-auto">
+                            <li class="nav-item dropdown fs-5">
+                                <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Les talents</a>
+                                <div class="dropdown-menu">
+                                    <a class="dropdown-item" href="{{path('all_candidates_profiles')}}">Les candidats</a>
+                                    <a class="dropdown-item" href="{{path('all_collaborators_profiles')}}">Les collaborateurs</a>
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item" href="{{path('all_profiles')}}">Tous les talents</a>
+                                </div>
+                            </li>
+                            {% if is_granted('ROLE_ADMIN') %}
+                                <li class="nav-item fs-5">
+                                    <a class="nav-link" href="{{ path('user') }}">Les comptes</a>
+                                </li>
+                                <li class="nav-item dropdown fs-5">
+                                    <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">La nomenclature</a>
+                                    <div class="dropdown-menu">
+                                        <a class="dropdown-item" href="{{path('skill')}}">Les compétences</a>
+                                        <a class="dropdown-item" href="{{path('category')}}">Les catégories</a>
+                                        <div class="dropdown-divider"></div>
+                                        <a class="dropdown-item" href="{{path('company')}}">Les entreprises</a>
+                                        <div class="dropdown-divider"></div>
+                                        <a class="dropdown-item" href="{{path('options')}}">Autres</a>
+                                    </div>
+                                </li>
+                            {% endif %}
+                            <li class="nav-item fs-5">
+                                <a class="nav-link" href="{{ path('search') }}">Rechercher un profil</a>
+                            </li>
+                        </ul>
+                    </div>
+                {% endif %}
+
+            </div>
+
+            {% if app.user %}
+                <div class="d-flex align-items-center p-2 mt-3 bg-white rounded-pill">
+                    <i class="fas fa-user-circle me-2"></i>
+                    <small class="me-4">{{ app.user.username }}</small>
+                    <a href="{{ path('app_logout') }}" class="me-1">
+                        <i class="fas fa-power-off"></i>
+                    </a>
+                </div>
+            {% endif %}
+
+        </div>
+    </nav>
+
+{% endif %}
