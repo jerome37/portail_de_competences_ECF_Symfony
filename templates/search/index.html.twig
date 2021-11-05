@@ -3,8 +3,8 @@
 {% block title %}Portalents - recherche{% endblock %}
 
 {% block body %}
-{# {{ dump(results) }} #}
-    <form class="container w-75 border my-4 p-4">
+
+    <form class="container w-75 border my-5 p-4">
 
         <div class="container w-75 mt-2 mb-4">
             <input class="form-control me-sm-2" method="POST" placeholder="Rechercher un profil" role="search" name="name">
@@ -67,24 +67,50 @@
             </div>
         </div>
 
-        <div class="container w-50">
-            <table class="table table-hover">
+        <div class="container d-flex justify-content-center">
+            <table class="table table-hover w-75">
                 <thead>
                     <tr>
-                        <th scope="col">Nom</th>
-                        <th scope="col">Statut</th>
-                        <th scope="col">Profession</th>
-                        {# <th scope="col">Column heading</th> #}
+                        <th scope="col">
+                            <div class="d-flex justify-content-center w-100">Nom</div>
+                        </th>
+                        <th scope="col">
+                            <div class="d-flex justify-content-center w-100">Statut</div>
+                        </th>
+                        <th scope="col">
+                            <div class="d-flex justify-content-center w-100">Profession</div>
+                        </th>
+                        <th scope="col">
+                            <div class="d-flex justify-content-center w-100">Voir/modifier le profil</div>
+                        </th>
                     </tr>
                 </thead>
                 <tbody>
                     {% for result in results %}
-                        <tr>
-                            <th>{{ result.firstname ~ ' ' ~ result.lastname }}</th>
-                            <td>{{ result.status.name }}</td>
-                            <td>{{ result.profession.name }}</td>
-                            <td class="d-flex justify-content-center"><a href="{{ path('profile', { 'id': result.id }) }}"><i class="fas fa-eye"></i></a></td>
-                        </tr>
+                        <tr class="table-light">
+							<th class="d-flex justify-content-center w-100 fs-5">
+								<div>
+									{{ result.firstname ~ ' ' ~ result.lastname }}
+								</div>
+							</th>
+							<td>
+								<div class="d-flex justify-content-center w-100">
+									{{ result.status.name }}
+								</div>
+							</td>
+                            <td>
+                                <div class="d-flex justify-content-center w-100">
+                                    {{ result.profession.name }}
+                                </div>
+							</td>
+							<td>
+								<div class="d-flex justify-content-center w-100">
+									<a href="{{ path('profile', { 'id': result.id }) }}">
+                                        <i class="fas fa-eye text-black"></i>
+                                    </a>
+								</div>
+							</td>
+						</tr>
                     {% endfor %}
                 </tbody>
             </table>

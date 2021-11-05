@@ -3,10 +3,7 @@
 {% block title %}TalentsManager - Les expériences{% endblock %}
 
 {% block body %}
-{# {{ dump(experiences) }} #}
-{% for experience in experiences %}
-	{{ dump(experience.profile.experiences.owner) }}
-{% endfor %}
+
 	<div class="container mt-5 d-flex flex-column align-items-center">
 		<h1 class="mt-4 mb-4">Liste des expériences</h1>
 		<div class="container d-flex justify-content-center">
