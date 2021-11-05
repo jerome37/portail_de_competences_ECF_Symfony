@@ -20,7 +20,7 @@ final class Version20211018202708 extends AbstractMigration
     public function up(Schema $schema): void
     {
         // this up() migration is auto-generated, please modify it to your needs
-        $this->addSql('ALTER TABLE profile ADD firstname VARCHAR(255) NOT NULL, ADD lastname VARCHAR(255) NOT NULL, ADD adress VARCHAR(255) NOT NULL, ADD postal INT NOT NULL, ADD town VARCHAR(255) NOT NULL, ADD phone INT NOT NULL');
+        $this->addSql('ALTER TABLE profile ADD firstname VARCHAR(255) NOT NULL, ADD lastname VARCHAR(255) NOT NULL, ADD adress VARCHAR(255) NOT NULL, ADD postal INT NOT NULL, ADD town VARCHAR(255) NOT NULL, ADD phone VARCHAR(45) NOT NULL');
         $this->addSql('ALTER TABLE user ADD email VARCHAR(255) NOT NULL');
     }
 
