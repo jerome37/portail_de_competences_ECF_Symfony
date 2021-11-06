@@ -14,13 +14,16 @@
             <script src='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.1.1/js/bootstrap.min.js'></script>
         {% endblock %}
     </head>
-    <body class="relative">
+    <body>
         <header>
             {% include 'partials/_navbar.html.twig' %}
         </header>
-        {% block body %}{% endblock %}
-        {# <footer class="fixed-bottom">
-            {% include 'partials/_footer.html.twig' %}
-        </footer> #}
+        <main>
+            {% block body %}
+            {% endblock %}
+        </main>
+        <footer> {# class="fixed-bottom" #}
+            {# {% include 'partials/_footer.html.twig' %} #}
+        </footer>
     </body>
 </html>

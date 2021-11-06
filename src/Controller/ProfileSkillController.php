@@ -42,7 +42,7 @@ class ProfileSkillController extends AbstractController
             $this->em->persist($skill);
             $this->em->flush();
 
-            return $this->redirectToRoute('profile', ['id' => $id]);
+            return $this->redirectToRoute('profile');
         }
 
         return $this->render('profile_skill/add.html.twig', [

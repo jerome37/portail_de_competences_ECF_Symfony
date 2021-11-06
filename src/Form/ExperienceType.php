@@ -30,7 +30,8 @@ class ExperienceType extends AbstractType
             ])
             ->add('date_end', DateType::class, [
                 'label' => 'Date de fin',
-                'widget' => 'single_text'
+                'widget' => 'single_text',
+                'required' => false
             ])
             ->add('description', TextType::class, [
                 'label' => 'Description'

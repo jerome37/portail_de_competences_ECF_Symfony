@@ -4,12 +4,6 @@
 
 {% block body %}
 
-    {# <div class="container w-75 mt-5">
-        <div class="container w-75">
-            {{ form(modify_profile_form) }}
-        </div>
-    </div> #}
-
     <div class="container w-75 mt-5">
         <div class="container w-75">
             {{ form_start(modify_profile_form) }}
@@ -17,6 +11,10 @@
             {% if is_granted('ROLE_ADMIN') %}
                 <div class="row w-25">
                     {{ form_row(modify_profile_form.status) }}
+                </div>
+            {% else %}
+                <div class="row w-25">
+                    {{ form_row(modify_profile_form.status, { 'attr':{'disabled':'disabled'} }) }}
                 </div>
             {% endif %}
 
@@ -29,53 +27,107 @@
 
             <div class="dropdown-divider my-5"></div>
 
-            <div class="row">
-                <div class="col">
-                    {{ form_row(modify_profile_form.firstname) }}
+            {% if is_granted('ROLE_COMMERCIAL') %}
+
+                <div class="row">
+                    <div class="col">
+                        {{ form_row(modify_profile_form.firstname, { 'attr':{'disabled':'disabled'} }) }}
+                    </div>
+                    <div class="col">
+                        {{ form_row(modify_profile_form.lastname, { 'attr':{'disabled':'disabled'} }) }}
+                    </div>
                 </div>
-                <div class="col">
-                    {{ form_row(modify_profile_form.lastname) }}
+
+                <div class="row w-25">
+                    {{ form_row(modify_profile_form.profession, { 'attr':{'disabled':'disabled'} }) }}
                 </div>
-            </div>
-
-            <div class="row w-25">
-                {{ form_row(modify_profile_form.profession) }}
-            </div>
 
 
-            <div class="dropdown-divider my-5"></div>
+                <div class="dropdown-divider my-5"></div>
 
-            <div class="row">
-                {{ form_row(modify_profile_form.adress) }}
-            </div>
-
-            <div class="row">
-                <div class="col w-25">
-                    {{ form_row(modify_profile_form.postal) }}
+                <div class="row">
+                    {{ form_row(modify_profile_form.adress, { 'attr':{'disabled':'disabled'} }) }}
                 </div>
-                <div class="col w-75">
-                    {{ form_row(modify_profile_form.town) }}
+
+                <div class="row">
+                    <div class="col w-25">
+                        {{ form_row(modify_profile_form.postal, { 'attr':{'disabled':'disabled'} }) }}
+                    </div>
+                    <div class="col w-75">
+                        {{ form_row(modify_profile_form.town, { 'attr':{'disabled':'disabled'} }) }}
+                    </div>
                 </div>
-            </div>
 
 
-            <div class="dropdown-divider my-5"></div>
+                <div class="dropdown-divider my-5"></div>
 
-            <div class="row">
-                <div class="col w-25">
-                    {{ form_row(modify_profile_form.phone) }}
+                <div class="row">
+                    <div class="col w-25">
+                        {{ form_row(modify_profile_form.phone, { 'attr':{'disabled':'disabled'} }) }}
+                    </div>
+                    <div class="col w-75">
+                        {{ form_row(modify_profile_form.email, { 'attr':{'disabled':'disabled'} }) }}
+                    </div>
                 </div>
-                <div class="col w-75">
-                    {{ form_row(modify_profile_form.email) }}
+
+
+                <div class="dropdown-divider my-5"></div>
+
+                <div class="container d-flex justify-content-end w-100 ">
+                    {{ form_row(modify_profile_form.Ajouter) }}
                 </div>
-            </div>
+
+            {% else %}
+
+                <div class="row">
+                    <div class="col">
+                        {{ form_row(modify_profile_form.firstname) }}
+                    </div>
+                    <div class="col">
+                        {{ form_row(modify_profile_form.lastname) }}
+                    </div>
+                </div>
+
+                <div class="row w-25">
+                    {{ form_row(modify_profile_form.profession) }}
+                </div>
 
 
-            <div class="dropdown-divider my-5"></div>
+                <div class="dropdown-divider my-5"></div>
 
-            <div class="container d-flex justify-content-end w-100 ">
-                {{ form_row(modify_profile_form.Ajouter) }}
-            </div>
+                <div class="row">
+                    {{ form_row(modify_profile_form.adress) }}
+                </div>
+
+                <div class="row">
+                    <div class="col w-25">
+                        {{ form_row(modify_profile_form.postal) }}
+                    </div>
+                    <div class="col w-75">
+                        {{ form_row(modify_profile_form.town) }}
+                    </div>
+                </div>
+
+
+                <div class="dropdown-divider my-5"></div>
+
+                <div class="row">
+                    <div class="col w-25">
+                        {{ form_row(modify_profile_form.phone) }}
+                    </div>
+                    <div class="col w-75">
+                        {{ form_row(modify_profile_form.email) }}
+                    </div>
+                </div>
+
+
+                <div class="dropdown-divider my-5"></div>
+
+                <div class="container d-flex justify-content-end w-100 ">
+                    {{ form_row(modify_profile_form.Ajouter) }}
+                </div>
+
+            {% endif %}
 
             {{ form_end(modify_profile_form)}}
         </div>

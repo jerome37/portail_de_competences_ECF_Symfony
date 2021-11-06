@@ -214,9 +214,13 @@ class OptionsController extends AbstractController
     /**
      * @Route("/options/delete/{id}", name="delete_options")
      */
-    public function deleteOptions(?SkillLevel $skillLevelId, ?TypeExperience $typeExperienceId, ?TypeDocument $typeDocumentId): Response 
+    public function deleteOptions(?Profession $profession, ?Status $status,?SkillLevel $skillLevelId, ?TypeExperience $typeExperienceId, ?TypeDocument $typeDocumentId): Response 
     {
-        if($skillLevelId){
+        if($profession){
+            $this->em->remove($profession);
+        } elseif($status){
+            $this->em->remove($status);
+        } elseif($skillLevelId){
             $this->em->remove($skillLevelId);
         } elseif($typeExperienceId){
             $this->em->remove($typeExperienceId);

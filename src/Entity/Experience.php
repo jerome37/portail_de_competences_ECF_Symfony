@@ -121,7 +121,7 @@ class Experience
         return $this->date_end;
     }
 
-    public function setDateEnd(\DateTimeInterface $date_end): self
+    public function setDateEnd(?\DateTimeInterface $date_end): self
     {
         $this->date_end = $date_end;
 

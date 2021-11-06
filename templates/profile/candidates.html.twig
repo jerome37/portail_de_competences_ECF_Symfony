@@ -67,10 +67,12 @@
 				</tbody>
 			</table>
 		</div>
-		<div class="d-flex justify-content-center">
-			<button type="button" class="btn btn-primary btn-lg mt-4">
-				<a href="{{ path('add_profile') }}" style="color: white; padding: 2px; text-decoration: none;">Ajouter un candidat</a>
-			</button>
-		</div>
+		{% if is_granted('ROLE_ADMIN') %}
+			<div class="d-flex justify-content-center">
+				<button type="button" class="btn btn-primary btn-lg mt-4">
+					<a href="{{ path('add_profile') }}" style="color: white; padding: 2px; text-decoration: none;">Ajouter un candidat</a>
+				</button>
+			</div>
+		{% endif %}
 	</div>
 {% endblock %}

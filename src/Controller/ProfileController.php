@@ -34,7 +34,7 @@ class ProfileController extends AbstractController
         // A la connexion, récupération de l'id du profil de la personne connectée...
         // $id = $this->getUser()->getId();
         $id = $request->query->get('id');
-        
+        // dd($id);
         if($id){
             // $profile = $this->em->getRepository(Profile::class)->findBy(
             //     [ 'id' => $id ]
@@ -53,6 +53,7 @@ class ProfileController extends AbstractController
                 return $this->redirectToRoute('dashboard');
             }
         }
+        // dd($profile);
 
         // $id = $this->getUser()->getProfile()->getId();
 
@@ -97,18 +98,15 @@ class ProfileController extends AbstractController
         // dd($this->file($pdf));
 
         // ... afin de les transmettre au front pour l'affichage
-        return $this->render('profile/index.html.twig',
-            [ 
-            // 'user' => $user[0],
+        return $this->render('profile/index.html.twig', [ 
             'user' => $user,
-            // 'profile' => $profile[0],
             'profile' => $profile,
             'skills' => $skills,
             'categories' => $categories,
             'experiences' => $experiences,
             'documentTypes' => $documentTypes,
-            'documents' => $documents ]
-        );
+            'documents' => $documents 
+        ]);
     }
 
     /**
@@ -160,8 +158,7 @@ class ProfileController extends AbstractController
         if($addProfileForm->isSubmitted() && $addProfileForm->isValid())
         {
             $profile = $addProfileForm->getData();
-            // dd($profile);
-
+            
             $date = new \DateTime('now');
             $profile->setDate($date);
 
@@ -183,22 +180,41 @@ class ProfileController extends AbstractController
     {
         $updateProfileForm = $this->createForm(ProfileType::class, $id);
 
+        $originalStatus = $id->getStatus();
+
         $updateProfileForm->handlerequest($request);
 
         if($updateProfileForm->isSubmitted() && $updateProfileForm->isValid())
         {
             $profile = $updateProfileForm->getData();
+            
+            $status = $profile->getStatus();
+            if($status)
+            {
+                $profile->setStatus($status);
+            }
+            else
+            {
+                $profile->setStatus($originalStatus);
+            }
 
             $date = new \DateTime('now');
             $profile->setDateModification($date);
 
-            $status = $profile->getStatus()->getName();
-
-            if($profile->getStatus()->getName() === 'collaborateur'){
-                $this->em->flush($id);
-                return $this->redirectToRoute('profile');
-            } else {
-                $this->em->flush($id);
+            $this->em->persist($id);
+            $this->em->flush();
+            
+            if($profile->getUser())
+            {
+                if($profile->getUser()->getRoles()[0] === 'ROLE_COLLABORATEUR'){
+                    return $this->redirectToRoute('profile');
+                }
+                else{
+                    return $this->redirectToRoute('all_profiles');
+                }
+            }
+            else
+            {
                 return $this->redirectToRoute('all_profiles');
             }
         

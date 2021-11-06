@@ -17,6 +17,9 @@
                             <div class="d-flex justify-content-center w-100">Date de recrutement</div>
                         </th>
                         <th scope="col">
+                            <div class="d-flex justify-content-center w-100">Disponibilité</div>
+                        </th>
+                        <th scope="col">
                             <div class="d-flex justify-content-center w-100">Consulter/Modifier le profil</div>
                         </th>
                         <th scope="col">
@@ -39,6 +42,15 @@
                                     </div>
                                 {% endif %}
 							</td>
+                            <td>
+								<div class="d-flex justify-content-center w-100">
+									{% if profile.disponibility is same as(true) %}
+										<span class="badge rounded-pill bg-success">disponible</span>
+									{% else %}
+										<span class="badge rounded-pill bg-danger">indisponible</span>
+									{% endif %}
+								</div>
+							</td>
 							<td>
 								<div class="d-flex justify-content-center w-100">
 									<a href="{{ path('profile', {'id': profile.id}) }}" style="margin-right: 30px;">
@@ -58,10 +70,12 @@
 				</tbody>
 			</table>
 		</div>
-		{# <div class="d-flex justify-content-center">
-			<button type="button" class="btn btn-primary btn-lg mt-4">
-				<a href="{{ path('add_profile') }}" style="color: white; padding: 2px; text-decoration: none;">Ajouter un utilisateur</a>
-			</button>
-		</div> #}
+		{% if is_granted('ROLE_ADMIN') %}
+			<div class="d-flex justify-content-center">
+				<button type="button" class="btn btn-primary btn-lg mt-4">
+					<a href="{{ path('add_profile') }}" style="color: white; padding: 2px; text-decoration: none;">Ajouter un collaborateur</a>
+				</button>
+			</div>
+		{% endif %}
 	</div>
 {% endblock %}

@@ -3,7 +3,7 @@
 {% block title %}Portalents - Profile{% endblock %}
 
 {% block body %}
-
+{# {{ dump(user) }} #}
     <main class="container w-75 d-flex ">
         <div class="w-100 d-flex flex-column justify-content-center my-5">
             
@@ -89,7 +89,7 @@
                             {% if profile.user is not null %}
                                 <div class="my-4">
                                     <i class="fas fa-envelope me-2"></i>pro :
-                                    <a href="mailto:{{ profile.user.email }}">
+                                    <a href="mailto:{{ profile.user.email }}" class="link-dark">
                                         {{ profile.user.email }}
                                     </a>
                                 </div>
@@ -213,7 +213,11 @@
                                                 <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse{{ experience.id }}" aria-expanded="false" aria-controls="collapse{{ experience.id }}">
                                                     <span class="fs-5 me-3">{{ experience.function }}</span>
                                                     <span class="fs-6 me-3">{{ experience.company.name }} - {{ experience.location }}</span>
-                                                    <span> du {{ experience.dateStart|format_datetime('short', 'none', locale='fr') }} au {{ experience.dateEnd|format_datetime('short', 'none', locale='fr') }} </sapn>
+                                                    {% if  experience.dateEnd is same as(null) %}
+                                                        <span> Expérience en cours depuis le {{ experience.dateStart|format_datetime('short', 'none', locale='fr') }}</sapn>
+                                                    {% else %}
+                                                        <span> du {{ experience.dateStart|format_datetime('short', 'none', locale='fr') }} au {{ experience.dateEnd|format_datetime('short', 'none', locale='fr') }} </sapn>
+                                                    {% endif %}
                                                 </button>
                                             </h2>
                                             <div id="collapse{{ experience.id }}" class="accordion-collapse collapse" aria-labelledby="heading{{ experience.id }}" data-bs-parent="#accordionExample" style="">
@@ -284,16 +288,18 @@
                                                                             <i class="fas fa-file-pdf"></i>
                                                                         </a>
                                                                     </button>
-                                                                    <button type="button" class="btn btn-dark btn-sm">
-                                                                        <a href="{{ path('modify_document', { 'id': document.id }) }}" class="card-link text-decoration-none text-white">
-                                                                            <i class="fas fa-pencil-alt"></i>
-                                                                        </a>
-                                                                    </button>
-                                                                    <button type="button" class="btn btn-dark btn-sm">
-                                                                        <a href="{{ path('delete_document', { 'id': document.id }) }}" class="card-link text-decoration-none text-white">
-                                                                            <i class="fas fa-trash-alt"></i>
-                                                                        </a>
-                                                                    </button>
+                                                                    {% if is_granted('ROLE_COLLABORATEUR') %}
+                                                                        <button type="button" class="btn btn-dark btn-sm">
+                                                                            <a href="{{ path('modify_document', { 'id': document.id }) }}" class="card-link text-decoration-none text-white">
+                                                                                <i class="fas fa-pencil-alt"></i>
+                                                                            </a>
+                                                                        </button>
+                                                                        <button type="button" class="btn btn-dark btn-sm">
+                                                                            <a href="{{ path('delete_document', { 'id': document.id }) }}" class="card-link text-decoration-none text-white">
+                                                                                <i class="fas fa-trash-alt"></i>
+                                                                            </a>
+                                                                        </button>
+                                                                    {% endif %}
                                                                 </div>
                                                             </div>
                                                         {% endif %}

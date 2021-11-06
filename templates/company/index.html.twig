@@ -13,6 +13,12 @@
                             <div class="d-flex justify-content-center w-100">Nom</div>
                         </th>
 						<th scope="col">
+                            <div class="d-flex justify-content-center w-100">Téléphone</div>
+                        </th>
+						<th scope="col">
+                            <div class="d-flex justify-content-center w-100">Courriel</div>
+                        </th>
+						<th scope="col">
                             <div class="d-flex justify-content-center w-100">Gérer l'entreprise</div>
                         </th>
 					</tr>
@@ -23,6 +29,21 @@
 							<th class="d-flex justify-content-center w-100 fs-5">
 								<div>{{ company.name }}</div>
 							</th>
+							<td>
+								<div class="d-flex justify-content-center w-100">
+									<a href="tel:{{ company.phone }}" class="link-dark">
+										{% set splitNumber = company.phone|split('', 2) %}
+										{{ splitNumber|join('.') }}
+									</a>
+								</div>
+							</td>
+							<td>
+								<div class="d-flex justify-content-center w-100">
+									<a href="mailto:{{ company.email }}" class="link-dark">
+										{{ company.email }}
+									</a>
+								</div>
+							</td>
 							<td>
 								<div class="d-flex justify-content-center w-100">
 									<a href="{{ path('modify_company', {'id': company.id}) }}" style="margin-right: 30px;">

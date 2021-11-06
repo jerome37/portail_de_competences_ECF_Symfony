@@ -3,15 +3,11 @@
 {% block title %}TalentsManager - Ajouter une expérience{% endblock %}
 
 {% block body %}
-{{ dump(app.request.query.get('id')) }}
+
     <div class="container w-75 mt-5">
         <div class="container w-75">
-            {# {{ form(add_experience_form) }} #}
-            {{ form_start(add_experience_form) }}
-            {# {{ form_row(add_experience_form.submit, {'id': app.request.query.get('id')}) }} #}
-            <input type="submit" onclick="location.href='{{ path( 'profile', {'id' : app.request.query.get('id') }) }}';">
-            </input>
-            {{ form_end(add_experience_form) }}
+            {{ form(add_experience_form) }}
         </div>
     </div>
+    
 {% endblock %}

@@ -48,7 +48,7 @@ class UserType extends AbstractType
                 ],
                 'required' => true
             ])
-            ->add('submit', SubmitType::class)
+            ->add('Ajouter', SubmitType::class)
         ;
 
         $builder->get('roles')
