@@ -51,9 +51,9 @@ class CategoryController extends AbstractController
             return $this->redirectToRoute('category');
         }
 
-        return $this->render('category/add.html.twig', 
-            [ 'add_category_form' => $addCategoryForm->createView() ]
-        );
+        return $this->render('category/add.html.twig', [ 
+            'add_category_form' => $addCategoryForm->createView() 
+        ]);
     }
 
     /**
@@ -74,9 +74,9 @@ class CategoryController extends AbstractController
             return $this->redirectToRoute('category');
         }
 
-        return $this->render('category/modify.html.twig',
-            [ 'modify_category_form' => $modifyCategoryForm->createView()]
-        );
+        return $this->render('category/modify.html.twig', [ 
+            'modify_category_form' => $modifyCategoryForm->createView()
+        ]);
     }
 
     /**

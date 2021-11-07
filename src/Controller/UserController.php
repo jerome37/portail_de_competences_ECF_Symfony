@@ -29,9 +29,9 @@ class UserController extends AbstractController
     {
         $users = $this->em->getRepository(User::class)->findAll();
         
-        return $this->render('user/index.html.twig', 
-            [ 'users' => $users ]
-        );
+        return $this->render('user/index.html.twig', [ 
+            'users' => $users 
+        ]);
     }
 
     /**
@@ -63,6 +63,7 @@ class UserController extends AbstractController
             // ... récupération du statut 'collaborateur'...
             $collabStatus = $this->em->getRepository(Status::class)->findBy(['name' => 'collaborateur']);
             // ... pour les renseigner en tant que nouveau statut, avec la date de modification (pour le commercial) ... 
+            
             if($profile)
             {
                 $profile[0]->setStatus($collabStatus[0])

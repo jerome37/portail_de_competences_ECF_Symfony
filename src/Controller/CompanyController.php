@@ -26,9 +26,9 @@ class CompanyController extends AbstractController
     {
         $companies = $this->em->getRepository(Company::class)->findAll();
         
-        return $this->render('company/index.html.twig', 
-            [ 'companies' => $companies ]
-        );
+        return $this->render('company/index.html.twig', [ 
+            'companies' => $companies 
+        ]);
     }
 
     /**
@@ -51,9 +51,9 @@ class CompanyController extends AbstractController
             return $this->redirectToRoute('company');
         }
 
-        return $this->render('company/add.html.twig', 
-            [ 'add_company_form' => $addCompanyForm->createView() ]
-        );
+        return $this->render('company/add.html.twig', [ 
+            'add_company_form' => $addCompanyForm->createView() 
+        ]);
     }
 
     /**
@@ -75,9 +75,9 @@ class CompanyController extends AbstractController
             return $this->redirectToRoute('company');
         }
 
-        return $this->render('company/modify.html.twig', 
-            [ 'modify_company_form' => $modifyCompanyForm->createView() ]
-        );
+        return $this->render('company/modify.html.twig', [ 
+            'modify_company_form' => $modifyCompanyForm->createView() 
+        ]);
     }
 
     /**

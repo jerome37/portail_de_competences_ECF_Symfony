@@ -56,9 +56,9 @@ class ExperienceController extends AbstractController
             return $this->redirectToRoute('profile');
         }
 
-        return $this->render('experience/add.html.twig', 
-            [ 'add_experience_form' => $addExperienceForm->createView() ]
-        );
+        return $this->render('experience/add.html.twig', [ 
+            'add_experience_form' => $addExperienceForm->createView() 
+        ]);
     }
 
     /**
@@ -80,9 +80,9 @@ class ExperienceController extends AbstractController
             return $this->redirectToRoute('profile');
         }
 
-        return $this->render('experience/modify.html.twig', 
-            [ 'modify_experience_form' => $modifyExperienceForm->createView() ]
-        );
+        return $this->render('experience/modify.html.twig', [ 
+            'modify_experience_form' => $modifyExperienceForm->createView() 
+        ]);
     }
 
     /**

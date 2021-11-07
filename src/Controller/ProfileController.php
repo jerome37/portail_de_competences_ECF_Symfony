@@ -12,6 +12,7 @@ use App\Entity\ProfileSkill;
 use App\Entity\TypeDocument;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Security\Core\Security;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\Routing\Annotation\Route;
@@ -31,73 +32,37 @@ class ProfileController extends AbstractController
      */
     public function index(?Request $request): Response
     {
-        // A la connexion, récupération de l'id du profil de la personne connectée...
-        // $id = $this->getUser()->getId();
         $id = $request->query->get('id');
-        // dd($id);
+       
         if($id){
-            // $profile = $this->em->getRepository(Profile::class)->findBy(
-            //     [ 'id' => $id ]
-            // );
-            $profile = $this->em->getRepository(Profile::class)->findBy(
+            $profile = $this->em->getRepository(Profile::class)->findOneBy(
                 [ 'id' => $id ]
-            )[0];
+            );
         } else {
-            // $id = $this->getUser()->getProfile()->getId();
-            // $profile = $this->em->getRepository(Profile::class)->findBy(
-            //     [ 'id' => $id ]
-            // );
             $profile = $this->getUser()->getProfile();
-            // dd($profile);
+
             if($profile === null){
                 return $this->redirectToRoute('dashboard');
             }
         }
-        // dd($profile);
 
-        // $id = $this->getUser()->getProfile()->getId();
-
-        // ... et du profile de l'utilisateur ...
-        // $user = $this->em->getRepository(User::class)->findBy(
-        //     [ 'id' => $id ]
-        // );
         $user = $this->getUser();
-        // dd($this->getUser());
-
-        // ... pour permettre d'en récupérer les infos complètes que sont :
-        // le profile
-        // $profile = $this->em->getRepository(Profile::class)->findBy(
-        //     [ 'id' => $id ]
-        // );
         
-        // et les compétences rattachées
-        $skills = $this->em->getRepository(ProfileSkill::class)->findBy(
-            // [ 'profile' => $profile[0]->getId() ]
-            [ 'profile' => $profile->getId() ]
-        );
+        $skills = $this->em->getRepository(ProfileSkill::class)->findBy([ 
+            'profile' => $profile->getId() 
+        ]);
+    
+        $experiences = $this->em->getRepository(Experience::class)->findBy([ 
+            'profile' => $profile->getId() 
+        ]);
+        
+        $documents = $this->em->getRepository(Document::class)->findBy([ 
+            'profile' => $profile->getId() 
+        ]);
 
-        // En plus, on récupère également le nom de toutes les catégories pour les besoins de la configuration du front
         $categories = $this->em->getRepository(Category::class)->findAll();
-        
-        // ... On récupère les expériences :
-        $experiences = $this->em->getRepository(Experience::class)->findBy(
-            // [ 'profile' => $profile[0]->getId() ]
-            [ 'profile' => $profile->getId() ]
-        );
-
-        // ... ainsi que les documents
         $documentTypes = $this->em->getRepository(TypeDocument::class)->findAll();
-        
-        $documents = $this->em->getRepository(Document::class)->findBy(
-            // [ 'profile' => $profile[0]->getId() ]
-            [ 'profile' => $profile->getId() ]
-        );
 
-        // $docName = $documents[0]->getFile();
-        // $pdf = new File($docName);
-        // dd($this->file($pdf));
-
-        // ... afin de les transmettre au front pour l'affichage
         return $this->render('profile/index.html.twig', [ 
             'user' => $user,
             'profile' => $profile,

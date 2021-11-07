@@ -26,9 +26,9 @@ class ProfessionController extends AbstractController
     {
         $professions = $this->em->getRepository(Profession::class)->findAll();
         
-        return $this->render('profession/index.html.twig', 
-            [ 'professions' => $professions ]
-        );
+        return $this->render('profession/index.html.twig', [ 
+            'professions' => $professions 
+        ]);
     }
 
     /**

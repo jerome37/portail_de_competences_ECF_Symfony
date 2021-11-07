@@ -51,9 +51,9 @@ class TypeDocumentController extends AbstractController
             return $this->redirectToRoute('type_document');
         }
 
-        return $this->render('type_document/add.html.twig', 
-            [ 'add_document_type_form' => $addDocumentTypeForm->createView() ]
-        );
+        return $this->render('type_document/add.html.twig', [ 
+            'add_document_type_form' => $addDocumentTypeForm->createView() 
+        ]);
     }
 
     /**
@@ -75,9 +75,9 @@ class TypeDocumentController extends AbstractController
             return $this->redirectToRoute('type_document');
         }
 
-        return $this->render('type_document/modify.html.twig', 
-            [ 'modify_document_type_form' => $modifyDocumentTypeForm->createView() ]
-        );
+        return $this->render('type_document/modify.html.twig', [ 
+            'modify_document_type_form' => $modifyDocumentTypeForm->createView() 
+        ]);
     }
 
 

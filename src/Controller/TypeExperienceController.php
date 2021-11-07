@@ -75,9 +75,9 @@ class TypeExperienceController extends AbstractController
             return $this->redirectToRoute('type_experience');
         }
 
-        return $this->render('type_experience/modify.html.twig', 
-            [ 'modify_experience_type_form' => $modifyExperienceTypeForm->createView() ]
-        );
+        return $this->render('type_experience/modify.html.twig', [ 
+            'modify_experience_type_form' => $modifyExperienceTypeForm->createView() 
+        ]);
     }
 
     /**

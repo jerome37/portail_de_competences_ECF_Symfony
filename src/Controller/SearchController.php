@@ -39,10 +39,10 @@ class SearchController extends AbstractController
             $results = $this->em->getRepository(Profile::class)->searchProfiles($name, $skill, $level, $appreciation);
         }
 
-        return $this->render("search/index.html.twig",
-            [ 'results' => $results,
-              'skills' => $skills,
-              'levels' => $levels ]
-        );
+        return $this->render("search/index.html.twig", [ 
+            'results' => $results,
+            'skills' => $skills,
+            'levels' => $levels 
+        ]);
     }
 }

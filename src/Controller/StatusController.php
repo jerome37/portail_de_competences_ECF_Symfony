@@ -26,9 +26,9 @@ class StatusController extends AbstractController
     {
         $status = $this->em->getRepository(Status::class)->findAll();
         
-        return $this->render('status/index.html.twig', 
-            [ 'status' => $status ]
-        );
+        return $this->render('status/index.html.twig', [ 
+            'status' => $status 
+        ]);
     }
 
     /**
@@ -51,9 +51,9 @@ class StatusController extends AbstractController
             return $this->redirectToRoute('status');
         }
 
-        return $this->render('status/add.html.twig', 
-            [ 'add_status_form' => $addStatusForm->createView() ]
-        );
+        return $this->render('status/add.html.twig', [ 
+            'add_status_form' => $addStatusForm->createView() 
+        ]);
     }
 
     /**
@@ -75,9 +75,9 @@ class StatusController extends AbstractController
             return $this->redirectToRoute('status');
         }
 
-        return $this->render('status/modify.html.twig', 
-            [ 'modify_status_form' => $modifyStatusForm->createView() ]
-        );
+        return $this->render('status/modify.html.twig', [ 
+            'modify_status_form' => $modifyStatusForm->createView() 
+        ]);
     }
 
     /**

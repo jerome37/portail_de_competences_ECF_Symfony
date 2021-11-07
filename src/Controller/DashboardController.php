@@ -28,10 +28,10 @@ class DashboardController extends AbstractController
 
         $modifiedProfiles = $this->em->getRepository(Profile::class)->getModifiedProfiles();
         
-        return $this->render('dashboard/index.html.twig',
-            [ 'new_candidates' => $newCandidates,
-              'new_collaborators' => $newCollaborators,
-              'modified_profiles' => $modifiedProfiles ]
-        );
+        return $this->render('dashboard/index.html.twig',[ 
+            'new_candidates' => $newCandidates,
+            'new_collaborators' => $newCollaborators,
+            'modified_profiles' => $modifiedProfiles 
+        ]);
     }
 }

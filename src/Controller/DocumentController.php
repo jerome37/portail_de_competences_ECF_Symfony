@@ -99,9 +99,9 @@ class DocumentController extends AbstractController
             return $this->redirectToRoute('document');
         }
 
-        return $this->render("document/modify.html.twig", 
-            [ 'modify_document_form' => $addDocumentForm->createView() ]
-        );
+        return $this->render("document/modify.html.twig", [ 
+            'modify_document_form' => $addDocumentForm->createView() 
+        ]);
     }
 
     /**
