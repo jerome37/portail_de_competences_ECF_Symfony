@@ -12,7 +12,6 @@ use App\Entity\ProfileSkill;
 use App\Entity\TypeDocument;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Security\Core\Security;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\Routing\Annotation\Route;
@@ -47,6 +46,10 @@ class ProfileController extends AbstractController
         }
 
         $user = $this->getUser();
+
+        // J'ai tenté d'appliquer une sécurité en plus avec les 'Voters' mais cela ne semble pas fonctionner...
+        $role = $user->getRoles()[0];
+        $this->denyAccessUnlessGranted($role, $profile);
         
         $skills = $this->em->getRepository(ProfileSkill::class)->findBy([ 
             'profile' => $profile->getId() 

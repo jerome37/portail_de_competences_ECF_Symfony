@@ -18,12 +18,14 @@
                         <th scope="col">
                             <div class="d-flex justify-content-center w-100">Consulter/Modifier le profil</div>
                         </th>
-                        <th scope="col">
-                            <div class="d-flex justify-content-center w-100">Recruter le candidat</div>
-                        </th>
-						<th scope="col">
-                            <div class="d-flex justify-content-center w-100">Supprimer le profil</div>
-                        </th>
+						{% if is_granted('ROLE_ADMIN') %}
+							<th scope="col">
+								<div class="d-flex justify-content-center w-100">Recruter le candidat</div>
+							</th>
+							<th scope="col">
+								<div class="d-flex justify-content-center w-100">Supprimer le profil</div>
+							</th>
+						{% endif %}
                     </tr>
                 </thead>
 				</thead>
@@ -47,20 +49,22 @@
 									</a>
 								</div>
 							</td>
-							<td>
-								<div class="d-flex justify-content-center w-100">
-									<a href="{{ path('add_user', {'id': profile.id}) }}">
-										<i class="fas fa-user-plus" style="color: black;"></i>
-									</a>
-								</div>
-							</td>
-							<td>
-								<div class="d-flex justify-content-center w-100">
-									<a href="{{ path('delete_profile', {'id': profile.id}) }}" style="margin-right: 30px;">
-										<i class="far fa-trash-alt" style="color: black"></i>
-									</a>
-								</div>
-							</td>
+							{% if is_granted('ROLE_ADMIN') %}
+								<td>
+									<div class="d-flex justify-content-center w-100">
+										<a href="{{ path('add_user', {'id': profile.id}) }}">
+											<i class="fas fa-user-plus" style="color: black;"></i>
+										</a>
+									</div>
+								</td>
+								<td>
+									<div class="d-flex justify-content-center w-100">
+										<a href="{{ path('delete_profile', {'id': profile.id}) }}" style="margin-right: 30px;">
+											<i class="far fa-trash-alt" style="color: black"></i>
+										</a>
+									</div>
+								</td>
+							{% endif %}
 						</tr>
 					{% endfor %}
 				</tbody>
