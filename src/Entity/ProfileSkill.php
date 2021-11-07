@@ -18,7 +18,7 @@ class ProfileSkill
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="boolean", nullable=true)
      */
     private $appreciation;
 
@@ -45,12 +45,12 @@ class ProfileSkill
         return $this->id;
     }
 
-    public function getAppreciation(): ?string
+    public function getAppreciation(): ?bool
     {
         return $this->appreciation;
     }
 
-    public function setAppreciation(string $appreciation): self
+    public function setAppreciation(?bool $appreciation): self
     {
         $this->appreciation = $appreciation;
 
